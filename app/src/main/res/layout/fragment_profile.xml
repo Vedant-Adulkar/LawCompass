@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- App Bar with collapsing toolbar for profile header -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- Profile Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="24dp">
+
+                <!-- Profile Image with Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    app:cardCornerRadius="55dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/baseline_account_circle_24"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="Profile picture" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- User Name -->
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    android:layout_marginTop="8dp" />
+
+                <!-- Subscription Status with Badge -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/subscriptionChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Free Plan"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    app:chipBackgroundColor="#FF5722"
+
+                    app:chipIconTint="@color/white"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- Edit Profile Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editProfileButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Profile"
+                    android:textAllCaps="false"
+
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Profile Sections -->
+            <!-- Appointment History Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Section Header with Icon -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Calendar icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Appointment History"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                             />
+
+                        <ImageButton
+                            android:id="@+id/viewAllAppointments"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="4dp"
+                            android:contentDescription="View all appointments" />
+                    </LinearLayout>
+
+                    <!-- Recent Appointments List Placeholder -->
+                    <TextView
+                        android:id="@+id/emptyAppointmentsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No recent appointments"
+                        android:textAlignment="center"
+
+                        android:paddingVertical="24dp"
+                        android:visibility="visible" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/appointmentsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:nestedScrollingEnabled="false" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Saved Lawyers Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Bookmarked Legal Info Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Section Header with Icon -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Favorites icon"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Saved Lawyers"
+
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/viewAllSavedLawyers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="View all saved lawyers"
+                        android:padding="4dp"
+                        />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/savedLawyersRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Section Header with Icon -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Bookmark icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bookmarked Legal Info"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                           />
+
+                        <ImageButton
+                            android:id="@+id/viewAllBookmarks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="4dp"
+                            android:contentDescription="View all bookmarks" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/bookmarksRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Settings & Preferences Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Section Header with Icon -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Settings icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Settings &amp; Preferences"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                             />
+                    </LinearLayout>
+
+                    <!-- Setting Options -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Manage Account Option -->
+                        <LinearLayout
+                            android:id="@+id/manageAccountOption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+
+                                android:layout_marginEnd="12dp"
+                                android:contentDescription="Account icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Manage Account"
+                                android:textSize="16sp"
+                                />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+
+                                android:contentDescription="Forward icon" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            />
+
+                        <!-- Notification Settings Option -->
+                        <LinearLayout
+                            android:id="@+id/notificationSettingsOption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+
+                                android:layout_marginEnd="12dp"
+                                android:contentDescription="Notifications icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Notifications"
+                                android:textSize="16sp"
+                                 />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+
+                                android:contentDescription="Forward icon" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                             />
+
+                        <!-- Privacy & Security Option -->
+                        <LinearLayout
+                            android:id="@+id/privacySecurityOption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+
+                                android:layout_marginEnd="12dp"
+                                android:contentDescription="Security icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Privacy &amp; Security"
+                                android:textSize="16sp"
+                                />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+
+                                android:contentDescription="Forward icon" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            />
+
+                        <!-- Help & Support Option -->
+                        <LinearLayout
+                            android:id="@+id/helpSupportOption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+
+                                android:layout_marginEnd="12dp"
+                                android:contentDescription="Help icon" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Help &amp; Support"
+                                android:textSize="16sp"
+                                 />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+
+                                android:contentDescription="Forward icon" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                             />
+
+                        <!-- Logout Option -->
+                        <LinearLayout
+                            android:id="@+id/logoutOption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="12dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:tint="#FF5722"
+                                android:layout_marginEnd="12dp"
+                                android:contentDescription="Logout icon" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Logout"
+                                android:textSize="16sp"
+                                android:textColor="#FF5722" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- App Version Info -->
+            <TextView
+                android:id="@+id/appVersionInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="App Version 1.0.0"
+                android:textSize="12sp"
+
+                android:textAlignment="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
