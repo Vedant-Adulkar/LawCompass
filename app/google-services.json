@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "629023284577",
+    "project_id": "lawcompass1",
+    "storage_bucket": "lawcompass1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629023284577:android:9d67bd9de940b855d13920",
+        "android_client_info": {
+          "package_name": "com.example.lawcompass"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC32hFtcu5ps75xRO9KIBHgVZRS9pHqtYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
