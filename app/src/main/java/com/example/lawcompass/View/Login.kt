@@ -1,6 +1,8 @@
 package com.example.lawcompass.View
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +23,7 @@ class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,17 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.reference.child("Profiles")
+
+        sharedPreferences = getSharedPreferences("Users", Context.MODE_PRIVATE)
+
+
+
+        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }//to check  whehter logged in
+
+
         binding.myloginbtn.setOnClickListener {
             val username = binding.myloginrname.text.toString()
             val pass = binding.myloginpass.text.toString()
@@ -54,6 +68,13 @@ class Login : AppCompatActivity() {
                         for(user in snapshot.children){
                             val userdata = user.getValue(UserData::class.java)
                             if(userdata!=null && userdata.pass == pass){
+                                val edit = sharedPreferences.edit()
+                                edit.putString("username", userdata.username)
+                                edit.putString("pass", userdata.pass)
+                                edit.putBoolean("isLoggedIn", true)
+                                edit.apply()
+
+
                                 Toast.makeText(this@Login,"Logged in successfully", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(this@Login,MainActivity::class.java))
                                 finish()
@@ -61,7 +82,7 @@ class Login : AppCompatActivity() {
                         }
                     }
                     else{
-                        Toast.makeText(this@Login,"Logged in successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Login,"no user found", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -74,4 +95,6 @@ class Login : AppCompatActivity() {
         )
 
     }
+
+
 }
